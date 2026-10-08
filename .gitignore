@@ -1,0 +1,70 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.astro/
+.vite/
+coverage/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+*.temp
+
+# Tool/cache folders
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Local automation/tool metadata
+.agents/
+.codex/
+
+# Large/raw design assets that should not be committed unless intentionally needed
+Images/originals/
+Images/raw/
+Images/*.psd
+Images/*.ai
+Images/*.eps
+Images/*.tif
+Images/*.tiff
+Images/*.heic
+Images/*.mov
+Images/*.mp4
+Images/*.zip
+Images/*.rar
+
+# Keep production image assets in Images/ tracked when referenced by index.html.
+# Do not ignore Images/*.png or Images/*.webp globally unless index.html is updated.
+

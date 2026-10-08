@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siempreviva — detalles hechos para quedarse</title>
+<meta name="description" content="Muñecos, flores, accesorios, arreglos y detalles hechos a mano en Lima. Compra desde nuestro catálogo online.">
+<meta name="theme-color" content="#F7F5F0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;
+  --card:#FFFFFF;
+  --ink:#171717;
+  --muted:#6F6B64;
+  --line:#E5E0D8;
+  --accent:#A63A5B;
+  --accent-soft:#F4E6EB;
+  --success:#2E6A49;
+  --radius:22px;
+  --shadow:0 18px 60px rgba(24,24,24,.08);
+  --sans:'DM Sans',system-ui,sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
+button,input{font:inherit}
+a{color:inherit}
+img{max-width:100%;display:block}
+.container{width:min(1180px,calc(100% - 36px));margin-inline:auto}
+.topbar{font-size:13px;text-align:center;padding:9px 16px;background:var(--ink);color:#fff}
+header{position:sticky;top:0;z-index:40;background:rgba(247,245,240,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(229,224,216,.9)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-family:var(--serif);font-size:27px;text-decoration:none;letter-spacing:.02em}
+.navlinks{display:flex;gap:24px;align-items:center}
+.navlinks a{text-decoration:none;font-size:14px;font-weight:600;color:var(--muted)}
+.navlinks a:hover{color:var(--ink)}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.icon-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:10px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.badge{min-width:22px;height:22px;padding:0 6px;display:grid;place-items:center;border-radius:999px;background:var(--accent);color:#fff;font-size:12px}
+.hero{padding:78px 0 46px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:12px}
+.eyebrow::before{content:'';width:28px;height:1px;background:currentColor}
+h1{font-family:var(--serif);font-size:clamp(48px,7vw,88px);line-height:.98;letter-spacing:-.035em;margin:18px 0 22px;max-width:10ch}
+.hero p{font-size:18px;color:var(--muted);max-width:56ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{border:1px solid var(--ink);background:var(--ink);color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.secondary{background:transparent;color:var(--ink)}
+.btn.accent{background:var(--accent);border-color:var(--accent)}
+.hero-card{min-height:470px;background:#EFE8DE;border-radius:36px;position:relative;overflow:hidden;box-shadow:var(--shadow);display:grid;place-items:center;padding:0}
+.hero-photo{width:100%;height:100%;min-height:470px;object-fit:cover;object-position:center;display:block}
+.hero-note{position:absolute;left:28px;bottom:24px;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);padding:12px 16px;border-radius:16px;font-size:13px;z-index:3}
+.stats{padding:14px 0 70px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:25px 20px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat strong{display:block;font-family:var(--serif);font-size:30px}
+.stat span{font-size:13px;color:var(--muted)}
+section{padding:78px 0}
+.section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:30px}
+.section-head h2{font-family:var(--serif);font-size:clamp(34px,5vw,54px);line-height:1.05;max-width:12ch}
+.section-head p{color:var(--muted);max-width:52ch}
+.categories{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 22px}
+.filter-btn{border:1px solid var(--line);background:var(--card);padding:10px 16px;border-radius:999px;cursor:pointer;font-weight:700;color:var(--muted)}
+.filter-btn.active,.filter-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.catalog-tools{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:24px}
+.search{flex:1;max-width:420px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:12px 18px;outline:none}
+.result-count{font-size:14px;color:var(--muted)}
+.products{display:flex;gap:18px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:2px 2px 16px;scrollbar-width:thin}
+.product{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s;display:flex;flex:0 0 min(280px,78vw);scroll-snap-align:start;flex-direction:column}
+.product:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.product-visual{aspect-ratio:3/4;background:#EFEAE2;display:grid;place-items:center;padding:0;position:relative;border:0;width:100%;cursor:pointer;overflow:hidden}
+.product-photo{width:100%;height:100%;object-fit:cover;object-position:center center;transition:.35s}
+.product:hover .product-photo{transform:scale(1.04)}
+.product-tag{position:absolute;left:14px;top:14px;background:#fff;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:700}
+.product-body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.product-category{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700}
+.product .product-category,.product .product-desc,.product .stock-help{display:none}
+.product-title{font-size:18px;font-weight:700}
+.product-title button{border:0;background:transparent;color:inherit;font:inherit;font-weight:inherit;text-align:left;cursor:pointer}
+.product-title button:hover{color:var(--accent)}
+.product-desc{font-size:13px;color:var(--muted);flex:1}
+.stock-line{font-size:12px;font-weight:800;color:var(--success);margin-top:2px}
+.stock-line.out{color:var(--accent)}
+.stock-help{font-size:12px;color:var(--muted)}
+.product-foot{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-top:8px}
+.price{font-size:18px;font-weight:800}
+.add{border:0;background:var(--ink);color:#fff;border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:20px;line-height:1}
+.add:disabled,.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:110;opacity:0;pointer-events:none;transition:.25s}
+.modal-backdrop.open{opacity:1;pointer-events:auto}
+.product-modal{position:fixed;left:50%;top:50%;width:min(980px,calc(100% - 28px));max-height:calc(100vh - 28px);padding:0;background:var(--card);border-radius:24px;z-index:120;transform:translate(-50%,-46%) scale(.98);opacity:0;pointer-events:none;transition:.25s;overflow:hidden;box-shadow:0 24px 90px rgba(0,0,0,.28)}
+.product-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.modal-close{position:absolute;right:16px;top:14px;z-index:3;border:0;background:rgba(255,255,255,.9);width:42px;height:42px;border-radius:999px;font-size:26px;cursor:pointer}
+.modal-grid{display:grid;grid-template-columns:minmax(360px,1fr) .85fr;min-height:560px}
+.modal-gallery{background:#EFEAE2;display:grid;grid-template-columns:86px 1fr;grid-template-areas:"thumbs stage";align-content:center;align-items:center;justify-items:center;gap:14px;padding:18px;min-width:0}
+.modal-stage{grid-area:stage;position:relative;width:min(100%,calc((100vh - 90px)*.75),540px);aspect-ratio:3/4;min-height:0;border-radius:18px;overflow:hidden;background:#F3EEE7;display:grid;place-items:center}
+.modal-stage img{width:100%;height:100%;object-fit:contain;object-position:center center}
+.gallery-nav{display:none}
+
+.thumbs{grid-area:thumbs;width:86px;max-height:min(calc(100vh - 90px),720px);display:flex;flex-direction:column;gap:10px;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-snap-type:y proximity;padding:2px 6px 2px 2px;scrollbar-width:thin}
+.thumb{flex:0 0 76px;width:76px;aspect-ratio:3/4;border:2px solid transparent;border-radius:12px;overflow:hidden;background:#fff;padding:0;cursor:pointer;scroll-snap-align:start}
+.thumb.active{border-color:var(--accent)}
+.thumb img{width:100%;height:100%;object-fit:contain;background:#F3EEE7}
+.modal-info{padding:54px 36px 34px;display:flex;flex-direction:column;gap:14px}
+.modal-info h3{font-family:var(--serif);font-size:clamp(34px,5vw,52px);line-height:1.05}
+.modal-info p{color:var(--muted)}
+.modal-price{font-size:24px;font-weight:800}
+.modal-meta{display:flex;gap:10px;flex-wrap:wrap}
+.modal-pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+.variant-options{display:flex;gap:8px;flex-wrap:wrap}
+.variant-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:800;cursor:pointer;color:var(--muted)}
+.variant-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.variant-btn.unavailable:not(.active){color:var(--accent);background:var(--accent-soft)}
+.modal-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto}
+.modal-actions .btn{flex:1;min-width:180px}
+.value{background:var(--ink);color:#fff}
+.value-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.value h2{font-family:var(--serif);font-size:clamp(38px,5vw,60px);line-height:1.05;margin:14px 0 18px}
+.value p{color:#CCC7C0;max-width:52ch}
+.benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.benefit{border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:22px}
+.benefit strong{display:block;margin-bottom:6px}
+.benefit span{font-size:13px;color:#BFB9B1}
+.process{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.step-num{font-family:var(--serif);font-size:38px;color:var(--accent)}
+.step h3{margin:6px 0 8px}
+.step p{font-size:14px;color:var(--muted)}
+.cta{padding:30px 0 90px}
+.cta-box{background:linear-gradient(120deg,#A63A5B,#7D2946);border-radius:34px;padding:54px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:34px}
+.cta h2{font-family:var(--serif);font-size:clamp(34px,5vw,54px);line-height:1.05;max-width:13ch}
+.cta p{color:#F2DCE4;margin-top:12px}
+.cta .btn{background:#fff;color:var(--accent);border-color:#fff;white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
+.footer-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{text-decoration:none}
+.drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:80;opacity:0;pointer-events:none;transition:.25s}
+.drawer-backdrop.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,100%);background:var(--card);z-index:90;transform:translateX(100%);transition:.3s;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.15)}
+.drawer.open{transform:translateX(0)}
+.drawer-head{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.drawer-head button{border:0;background:transparent;font-size:26px;cursor:pointer}
+.cart-items{padding:18px;display:flex;flex-direction:column;gap:12px;overflow:auto;flex:1}
+.cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:10px}
+.cart-thumb{width:64px;height:64px;border-radius:12px;background:#EFEAE2;display:grid;place-items:center;font-size:28px}
+.cart-info strong{display:block;font-size:14px}.cart-info span{font-size:12px;color:var(--muted)}
+.remove{border:0;background:transparent;color:var(--accent);cursor:pointer;font-size:18px}
+.empty{color:var(--muted);text-align:center;padding:50px 20px}
+.drawer-foot{border-top:1px solid var(--line);padding:18px}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:18px;margin-bottom:14px}
+.drawer-foot .btn{width:100%}
+.note{font-size:11px;color:var(--muted);margin-top:10px;text-align:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:140;font-size:14px}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:960px){.hero-grid,.value-grid{grid-template-columns:1fr}.hero-card{min-height:390px}.hero-photo{min-height:390px}.navlinks{display:none}.process{grid-template-columns:1fr}.cta-box{align-items:flex-start;flex-direction:column}.modal-grid{grid-template-columns:1fr;min-height:0}.product-modal{overflow:auto}.modal-gallery{grid-template-columns:1fr;grid-template-areas:"stage" "thumbs";min-height:auto;align-content:start}.modal-stage{width:min(100%,calc((100vh - 260px)*.75),460px);aspect-ratio:3/4}.thumbs{width:min(100%,460px);max-height:none;display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:0 2px 6px}.thumb{flex:0 0 calc((100% - 20px)/3.35);width:auto}.modal-info{padding:30px}}
+@media(max-width:620px){.hero{padding-top:48px}.product{flex-basis:82vw}.stats-grid{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.section-head{display:block}.section-head p{margin-top:12px}.catalog-tools{align-items:stretch;flex-direction:column}.search{max-width:none}.benefits{grid-template-columns:1fr}.cta-box{padding:34px 24px}.nav{height:68px}.brand{font-size:23px}.product-modal{width:calc(100% - 16px);max-height:calc(100vh - 16px);border-radius:18px}.modal-gallery{padding:10px}.modal-stage{width:min(100%,calc((100vh - 290px)*.75),360px);aspect-ratio:3/4}.thumbs{gap:7px;width:100%}.thumb{flex-basis:calc((100% - 14px)/3.35)}.modal-info{padding:24px}.modal-actions .btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="topbar">Hecho a mano en Lima · Pedidos personalizados disponibles</div>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#inicio">Siempreviva</a>
+    <nav class="navlinks" aria-label="Principal">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#diferencia">Por qué elegirnos</a>
+      <a href="#proceso">Cómo comprar</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="cartButton" aria-label="Abrir carrito">Carrito <span class="badge" id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Detalles con intención</span>
+        <h1>Regalos que se quedan.</h1>
+        <p>Muñecos, flores, accesorios, arreglos y detalles hechos a mano para celebrar personas, momentos y recuerdos.</p>
+        <div class="hero-actions">
+          <a class="btn accent" href="#catalogo">Explorar catálogo</a>
+          <a class="btn secondary" href="https://wa.me/51930628439?text=Hola%2C%20quiero%20un%20pedido%20personalizado%20de%20Siempreviva">Pedir algo personalizado</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Colección destacada de Siempreviva">
+        <img class="hero-photo" src="Images/GENERAL.png" alt="Colección de productos tejidos de Siempreviva">
+        <div class="hero-note">Colección hecha a mano · piezas únicas</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>5+</strong><span>categorías de productos</span></div>
+      <div class="stat"><strong>100%</strong><span>hecho a mano</span></div>
+      <div class="stat"><strong>1 a 1</strong><span>pedidos personalizados</span></div>
+    </div>
+  </div>
+
+  <section id="catalogo">
+    <div class="container">
+      <div class="section-head">
+        <div><span class="eyebrow">Catálogo</span><h2>Encuentra tu próximo detalle.</h2></div>
+        <p>Explora por categoría, agrega productos al carrito y envía tu pedido directamente por WhatsApp.</p>
+      </div>
+      <div class="categories" id="filters"></div>
+      <div class="catalog-tools">
+        <input class="search" id="searchInput" type="search" placeholder="Buscar muñecos, flores, accesorios..." aria-label="Buscar productos">
+        <span class="result-count" id="resultCount"></span>
+      </div>
+      <div class="products" id="products"></div>
+    </div>
+  </section>
+
+  <section class="value" id="diferencia">
+    <div class="container value-grid">
+      <div>
+        <span class="eyebrow" style="color:#F0B6C9">Hecho para quedarse</span>
+        <h2>No es solo un regalo. Es un recuerdo.</h2>
+        <p>Cada pieza se prepara con tiempo, cuidado y atención al detalle. Puedes elegir colores, tamaños, nombres y acabados para convertir una idea en algo realmente personal.</p>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><strong>Personalizable</strong><span>Colores, mensajes, tamaños y combinaciones según tu ocasión.</span></div>
+        <div class="benefit"><strong>Duradero</strong><span>Piezas diseñadas para acompañar, decorar y conservarse.</span></div>
+        <div class="benefit"><strong>Hecho a mano</strong><span>Cada producto tiene pequeñas variaciones que lo vuelven único.</span></div>
+        <div class="benefit"><strong>Listo para regalar</strong><span>Presentación cuidada y opción de tarjeta personalizada.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proceso">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">Cómo comprar</span><h2>Tres pasos. Sin complicarte.</h2></div></div>
+      <div class="process">
+        <article class="step"><div class="step-num">01</div><h3>Elige</h3><p>Filtra el catálogo, revisa los productos y agrégalos a tu carrito.</p></article>
+        <article class="step"><div class="step-num">02</div><h3>Envía tu pedido</h3><p>El carrito genera un mensaje con el detalle y el total para enviarlo por WhatsApp.</p></article>
+        <article class="step"><div class="step-num">03</div><h3>Confirma</h3><p>Coordinamos personalización, pago, fecha y modalidad de entrega.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container cta-box">
+      <div><h2>¿Tienes una idea distinta?</h2><p>Cuéntanos qué quieres crear y te ayudamos a convertirlo en un detalle único.</p></div>
+      <a class="btn" href="https://wa.me/51930628439?text=Hola%2C%20quiero%20cotizar%20un%20pedido%20personalizado">Cotizar por WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <span>© <span id="year"></span> Siempreviva · Lima, Perú</span>
+    <div class="footer-links"><a href="https://instagram.com/siempreviva.pe">Instagram</a><a href="https://tiktok.com/@siempreviva.pe">TikTok</a><a href="https://wa.me/51930628439">WhatsApp</a></div>
+  </div>
+</footer>
+
+<div class="drawer-backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer" aria-label="Carrito de compras">
+  <div class="drawer-head"><strong>Tu carrito</strong><button id="closeCart" aria-label="Cerrar carrito">&times;</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="total"><span>Total estimado</span><span id="cartTotal">S/ 0.00</span></div>
+    <button class="btn accent" id="checkoutBtn">Enviar pedido por WhatsApp</button>
+    <p class="note">El pago se coordina después de confirmar disponibilidad y personalización.</p>
+  </div>
+</aside>
+<div class="modal-backdrop" id="productModalBackdrop"></div>
+<section class="product-modal" id="productModal" aria-modal="true" role="dialog" aria-labelledby="modalTitle">
+  <button class="modal-close" id="closeProductModal" aria-label="Cerrar producto">&times;</button>
+  <div class="modal-grid">
+    <div class="modal-gallery">
+      <div class="modal-stage">
+        <img id="modalImage" src="" alt="">
+      </div>
+      <div class="thumbs" id="modalThumbs" aria-label="Fotos del producto"></div>
+    </div>
+    <div class="modal-info">
+      <span class="product-category" id="modalCategory"></span>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+      <div><p class="stock-line" id="modalStock"></p><p class="stock-help" id="modalStockHelp"></p></div>
+      <div class="variant-options" id="modalVariants" aria-label="Variantes del producto"></div>
+      <div class="modal-meta"><span class="modal-pill" id="modalTag"></span><span class="modal-pill">Hasta 4 fotos por producto</span></div>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-actions">
+        <button class="btn accent" id="modalAdd">Agregar al carrito</button>
+        <button class="btn secondary" id="modalWhatsapp">Consultar por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="toast" id="toast">Producto agregado al carrito</div>
+
+<script>
+const WHATSAPP_NUMBER='51930628439';
+const currency=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN'});
+const products=[
+  {id:1,name:'Nailong tejido',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'Muñeco tejido a mano inspirado en Nailong. Ideal para regalo personalizado.',images:['Images/NAILONG-1.png','Images/NAILONG-2.png','Images/NAILONG-3.png','Images/NAILONG-4.png']},
+  {id:2,name:'Charmander tejido',category:'Muñecos',price:55,stock:1,tag:'Disponible',desc:'Muñeco tejido a mano inspirado en Charmander, con acabado suave y decorativo.',images:['Images/CHARMANDER-1.png','Images/CHARMANDER-2.png','Images/CHARMANDER-3.png','Images/CHARMANDER-4.png']},
+  {id:3,name:'Capibara Pequeño',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'Capibara tejido a mano. Puedes pedirlo pequeño, normal o gigante.',images:['Images/CAPIBARA-PEQUEÑO-1.png','Images/CAPIBARA-PEQUEÑO-2.png','Images/CAPIBARA-PEQUEÑO-3.png','Images/CAPIBARA-PEQUEÑO-4.png'],variants:[{id:'pequeno',label:'Pequeño',name:'Capibara Pequeño',size:'5 cm',price:55,stock:1,tag:'Nuevo'},{id:'normal',label:'Normal',name:'Capibara Normal',size:'10 a 12 cm',price:null,stock:0,tag:'Por pedido'},{id:'gigante',label:'Gigante',name:'Capibara Gigante',size:'30 cm',price:null,stock:0,tag:'Por pedido'}]},
+  {id:4,name:'Capibara Llavero',category:'Accesorios',price:null,stock:0,tag:'Por pedido',desc:'Llavero tejido de capibara pequeño. Medida aproximada: 5 cm.',images:['Images/CAPIBARA-LLAVERO.png']}
+];
+let activeCategory='Todos';
+let activeProductId=null;
+let activeImageIndex=0;
+let selectedVariants={3:'pequeno'};
+let cart=JSON.parse(localStorage.getItem('siempreviva-cart')||'[]').filter(item=>products.some(product=>product.id===item.id)).map(item=>{const product=products.find(p=>p.id===item.id);const variant=productVariant(product,item.variantId);return {...item,variantId:variant.id,qty:Math.min(item.qty,variant.stock)}}).filter(item=>item.qty>0);
+const els={
+  products:document.getElementById('products'),filters:document.getElementById('filters'),search:document.getElementById('searchInput'),count:document.getElementById('resultCount'),cartCount:document.getElementById('cartCount'),drawer:document.getElementById('drawer'),backdrop:document.getElementById('backdrop'),cartItems:document.getElementById('cartItems'),cartTotal:document.getElementById('cartTotal'),toast:document.getElementById('toast'),
+  productModal:document.getElementById('productModal'),productModalBackdrop:document.getElementById('productModalBackdrop'),modalImage:document.getElementById('modalImage'),modalThumbs:document.getElementById('modalThumbs'),modalCategory:document.getElementById('modalCategory'),modalTitle:document.getElementById('modalTitle'),modalDesc:document.getElementById('modalDesc'),modalTag:document.getElementById('modalTag'),modalPrice:document.getElementById('modalPrice'),modalStock:document.getElementById('modalStock'),modalStockHelp:document.getElementById('modalStockHelp'),modalVariants:document.getElementById('modalVariants')
+};
+function getProduct(id){return products.find(p=>p.id===id);}
+function productImages(product,variant=productVariant(product)){return (variant?.images||product.images).slice(0,4);}
+function productVariant(product,variantId=selectedVariants[product?.id]){
+  if(!product)return null;
+  if(!product.variants)return {id:'default',label:'Único',name:product.name,price:product.price,stock:product.stock,tag:product.tag};
+  return product.variants.find(v=>v.id===variantId)||product.variants[0];
+}
+function displayName(product,variant=productVariant(product)){return variant?.name||product.name;}
+function displayDetail(product,variant=productVariant(product)){return variant?.size?`${product.desc} Medida: ${variant.size}.`:product.desc;}
+function variantLabel(variant){return variant.size?`${variant.label} · ${variant.size}`:variant.label;}
+function displayPrice(variant){return typeof variant.price==='number'?currency.format(variant.price):'Cotizar';}
+function stockText(product,variant=productVariant(product)){return variant.stock>0?`Disponible · ${variant.stock} unidad${variant.stock===1?'':'es'}`:'Sin stock';}
+function stockHelp(product,variant=productVariant(product)){return variant.stock>0?'Listo para separar por WhatsApp.':'Chatea y pide que te hagan uno.';}
+function cartKey(id,variantId='default'){return `${id}:${variantId}`;}
+function cartQty(id,variantId='default'){const item=cart.find(i=>cartKey(i.id,i.variantId)===cartKey(id,variantId));return item?item.qty:0;}
+function canAdd(product,variant=productVariant(product)){return variant.stock>0&&cartQty(product.id,variant.id)<variant.stock;}
+function renderFilters(){
+  const cats=['Todos',...new Set(products.map(p=>p.category))];
+  els.filters.innerHTML=cats.map(c=>`<button class="filter-btn ${c===activeCategory?'active':''}" data-category="${c}">${c}</button>`).join('');
+  els.filters.querySelectorAll('button').forEach(b=>b.onclick=()=>{activeCategory=b.dataset.category;renderFilters();renderProducts();});
+}
+function renderProducts(){
+  const q=els.search.value.trim().toLowerCase();
+  const filtered=products.filter(p=>(activeCategory==='Todos'||p.category===activeCategory)&&(`${p.name} ${p.category} ${p.desc} ${displayName(p)}`.toLowerCase().includes(q)));
+  els.count.textContent=`${filtered.length} producto${filtered.length===1?'':'s'}`;
+  els.products.innerHTML=filtered.map(p=>{const variant=productVariant(p);const img=productImages(p,variant)[0];const available=canAdd(p,variant);return `<article class="product" data-open-id="${p.id}"><button class="product-visual" data-open-id="${p.id}" aria-label="Ver ${displayName(p,variant)} ampliado"><span class="product-tag">${variant.stock>0?variant.tag:'Sin stock'}</span><img class="product-photo" src="${img}" alt="${displayName(p,variant)}" loading="lazy"></button><div class="product-body"><h3 class="product-title"><button data-open-id="${p.id}">${displayName(p,variant)}</button></h3><p class="stock-line ${variant.stock>0?'':'out'}">${stockText(p,variant)}</p><div class="product-foot"><span class="price">${displayPrice(variant)}</span><button class="add" data-id="${p.id}" aria-label="Agregar ${displayName(p,variant)}" ${available?'':'disabled'}>+</button></div></div></article>`}).join('')||'<p>No encontramos productos con ese criterio.</p>';
+  els.products.querySelectorAll('[data-open-id]').forEach(b=>b.onclick=()=>openProductModal(Number(b.dataset.openId)));
+  els.products.querySelectorAll('.add').forEach(b=>b.onclick=(event)=>{event.stopPropagation();addToCart(Number(b.dataset.id));});
+}
+function openProductModal(id,index=0){
+  const product=getProduct(id);if(!product)return;
+  const variant=productVariant(product);
+  activeProductId=id;activeImageIndex=index;
+  els.modalCategory.textContent=product.category;
+  els.modalTitle.textContent=displayName(product,variant);
+  els.modalDesc.textContent=displayDetail(product,variant);
+  els.modalTag.textContent=variant.tag;
+  els.modalPrice.textContent=displayPrice(variant);
+  els.modalStock.textContent=stockText(product,variant);
+  els.modalStock.classList.toggle('out',variant.stock<1);
+  els.modalStockHelp.textContent=stockHelp(product,variant);
+  renderVariantOptions(product);
+  document.getElementById('modalAdd').disabled=!canAdd(product,variant);
+  document.getElementById('modalAdd').textContent=variant.stock>0?'Agregar al carrito':'Pedir por chat';
+  renderModalImage();
+  els.productModal.classList.add('open');
+  els.productModalBackdrop.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function renderVariantOptions(product){
+  if(!product.variants){els.modalVariants.innerHTML='';return;}
+  const selected=productVariant(product);
+  els.modalVariants.innerHTML=product.variants.map(v=>`<button class="variant-btn ${v.id===selected.id?'active':''} ${v.stock>0?'':'unavailable'}" data-variant-id="${v.id}">${variantLabel(v)}</button>`).join('');
+  els.modalVariants.querySelectorAll('.variant-btn').forEach(btn=>btn.onclick=()=>{selectedVariants[product.id]=btn.dataset.variantId;openProductModal(product.id,activeImageIndex);renderProducts();});
+}
+function closeProductModal(){
+  els.productModal.classList.remove('open');
+  els.productModalBackdrop.classList.remove('open');
+  if(!els.drawer.classList.contains('open'))document.body.style.overflow='';
+}
+function renderModalImage(){
+  const product=getProduct(activeProductId);if(!product)return;
+  const variant=productVariant(product);
+  const images=productImages(product,variant);
+  activeImageIndex=(activeImageIndex+images.length)%images.length;
+  els.modalImage.src=images[activeImageIndex];
+  els.modalImage.alt=`${displayName(product,variant)} - foto ${activeImageIndex+1}`;
+  els.modalThumbs.innerHTML=images.map((src,i)=>`<button class="thumb ${i===activeImageIndex?'active':''}" data-image-index="${i}" aria-label="Ver foto ${i+1} de ${displayName(product,variant)}"><img src="${src}" alt=""></button>`).join('');
+  els.modalThumbs.querySelectorAll('.thumb').forEach(b=>b.onclick=()=>{activeImageIndex=Number(b.dataset.imageIndex);renderModalImage();});
+
+}
+function addToCart(id){
+  const product=getProduct(id);if(!product)return;
+  const variant=productVariant(product);
+  if(variant.stock<1){askAboutProduct();return;}
+  const found=cart.find(i=>cartKey(i.id,i.variantId)===cartKey(id,variant.id));
+  if(found){
+    if(found.qty>=variant.stock){showToast(`Solo hay ${variant.stock} unidad${variant.stock===1?'':'es'}`);return;}
+    found.qty++;
+  }else{
+    cart.push({id,variantId:variant.id,qty:1});
+  }
+  saveCart();renderProducts();
+  if(activeProductId===id&&els.productModal.classList.contains('open'))openProductModal(id,activeImageIndex);
+  showToast();
+}
+function removeFromCart(id,variantId='default'){cart=cart.filter(i=>cartKey(i.id,i.variantId)!==cartKey(id,variantId));saveCart();renderProducts();}
+function saveCart(){localStorage.setItem('siempreviva-cart',JSON.stringify(cart));renderCart();}
+function renderCart(){
+  cart=cart.filter(i=>getProduct(i.id)).map(i=>{const p=getProduct(i.id);const v=productVariant(p,i.variantId);return {...i,variantId:v.id,qty:Math.min(i.qty,v.stock)}}).filter(i=>i.qty>0);
+  const qty=cart.reduce((s,i)=>s+i.qty,0);els.cartCount.textContent=qty;
+  if(!cart.length){els.cartItems.innerHTML='<div class="empty">Tu carrito está vacío.</div>';els.cartTotal.textContent=currency.format(0);return;}
+  let total=0;
+  els.cartItems.innerHTML=cart.map(i=>{const p=getProduct(i.id);const v=productVariant(p,i.variantId);const sub=(v.price||0)*i.qty;total+=sub;return `<div class="cart-item"><div class="cart-thumb"><img src="${productImages(p,v)[0]}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:12px"></div><div class="cart-info"><strong>${displayName(p,v)}</strong><span>${i.qty} x ${displayPrice(v)}</span></div><button class="remove" data-id="${p.id}" data-variant-id="${v.id}" aria-label="Eliminar ${displayName(p,v)}">&times;</button></div>`}).join('');
+  els.cartTotal.textContent=currency.format(total);
+  els.cartItems.querySelectorAll('.remove').forEach(b=>b.onclick=()=>removeFromCart(Number(b.dataset.id),b.dataset.variantId));
+}
+function toggleCart(open){els.drawer.classList.toggle('open',open);els.backdrop.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function checkout(){
+  if(!cart.length){showToast('Agrega al menos un producto');return;}
+  const lines=cart.map(i=>{const p=getProduct(i.id);const v=productVariant(p,i.variantId);return `- ${displayName(p,v)} x${i.qty} - ${displayPrice(v)}`;});
+  const total=cart.reduce((s,i)=>{const p=getProduct(i.id);const v=productVariant(p,i.variantId);return s+(v.price||0)*i.qty},0);
+  const msg=`Hola, quiero hacer este pedido en Siempreviva:\n\n${lines.join('\n')}\n\nTotal estimado: ${currency.format(total)}\n\nQuisiera confirmar disponibilidad, personalización y entrega.`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+}
+function askAboutProduct(){
+  const product=getProduct(activeProductId);if(!product)return;
+  const variant=productVariant(product);
+  const msg=variant.stock>0?`Hola, quiero consultar por ${displayName(product,variant)} en Siempreviva.`:`Hola, quiero pedir que me realicen ${displayName(product,variant)} en Siempreviva.`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+}
+function showToast(text='Producto agregado al carrito'){els.toast.textContent=text;els.toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>els.toast.classList.remove('show'),1800);}
+els.search.addEventListener('input',renderProducts);
+document.getElementById('cartButton').onclick=()=>toggleCart(true);
+document.getElementById('closeCart').onclick=()=>toggleCart(false);
+els.backdrop.onclick=()=>toggleCart(false);
+document.getElementById('checkoutBtn').onclick=checkout;
+document.getElementById('closeProductModal').onclick=closeProductModal;
+els.productModalBackdrop.onclick=closeProductModal;
+document.getElementById('modalAdd').onclick=()=>{if(activeProductId)addToCart(activeProductId);};
+document.getElementById('modalWhatsapp').onclick=askAboutProduct;
+document.addEventListener('keydown',(event)=>{
+  if(!els.productModal.classList.contains('open'))return;
+  if(event.key==='Escape')closeProductModal();
+});
+document.getElementById('year').textContent=new Date().getFullYear();
+renderFilters();renderProducts();renderCart();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
