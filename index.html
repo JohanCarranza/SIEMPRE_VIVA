@@ -87,6 +87,7 @@ section{padding:78px 0}
 .product-desc{font-size:13px;color:var(--muted);flex:1}
 .stock-line{font-size:12px;font-weight:800;color:var(--success);margin-top:2px}
 .stock-line.out{color:var(--accent)}
+.product-tag.soon{background:var(--accent);color:#fff}
 .stock-help{font-size:12px;color:var(--muted)}
 .product-foot{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-top:8px}
 .price{font-size:18px;font-weight:800}
@@ -307,7 +308,8 @@ const products=[
   {id:1,name:'Nailong tejido',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'Muñeco tejido a mano inspirado en Nailong. Ideal para regalo personalizado.',images:['Images/NAILONG-1.png','Images/NAILONG-2.png','Images/NAILONG-3.png','Images/NAILONG-4.png']},
   {id:2,name:'Charmander tejido',category:'Muñecos',price:55,stock:1,tag:'Disponible',desc:'Muñeco tejido a mano inspirado en Charmander, con acabado suave y decorativo.',images:['Images/CHARMANDER-1.png','Images/CHARMANDER-2.png','Images/CHARMANDER-3.png','Images/CHARMANDER-4.png']},
   {id:3,name:'Capibara Pequeño',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'Capibara tejido a mano. Puedes pedirlo pequeño, normal o gigante.',images:['Images/CAPIBARA-PEQUEÑO-1.png','Images/CAPIBARA-PEQUEÑO-2.png','Images/CAPIBARA-PEQUEÑO-3.png','Images/CAPIBARA-PEQUEÑO-4.png'],variants:[{id:'pequeno',label:'Pequeño',name:'Capibara Pequeño',size:'5 cm',price:55,stock:1,tag:'Nuevo'},{id:'normal',label:'Normal',name:'Capibara Normal',size:'10 a 12 cm',price:null,stock:0,tag:'Por pedido'},{id:'gigante',label:'Gigante',name:'Capibara Gigante',size:'30 cm',price:null,stock:0,tag:'Por pedido'}]},
-  {id:4,name:'Capibara Llavero',category:'Accesorios',price:null,stock:0,tag:'Por pedido',desc:'Llavero tejido de capibara pequeño. Medida aproximada: 5 cm.',images:['Images/CAPIBARA-LLAVERO.png']}
+  {id:4,name:'Capibara Llavero',category:'Accesorios',price:null,stock:0,tag:'Por pedido',desc:'Llavero tejido de capibara pequeño. Medida aproximada: 5 cm.',images:['Images/CAPIBARA-LLAVERO.png']},
+  {id:5,name:'Anthurio Loki',category:'Flores',price:null,stock:0,tag:'Próximamente',comingSoon:true,desc:'Anthurio tejido a crochet en honor a Loki (Marvel). Combina sus tonos verdes característicos con detalles artesanales hechos punto a punto y un toque místico de colección. Una flor eterna para fans, que nunca se marchita.',images:['Images/ANTHURIO-LOKI-1.png','Images/ANTHURIO-LOKI-2.png']}
 ];
 let activeCategory='Todos';
 let activeProductId=null;
@@ -322,15 +324,15 @@ function getProduct(id){return products.find(p=>p.id===id);}
 function productImages(product,variant=productVariant(product)){return (variant?.images||product.images).slice(0,4);}
 function productVariant(product,variantId=selectedVariants[product?.id]){
   if(!product)return null;
-  if(!product.variants)return {id:'default',label:'Único',name:product.name,price:product.price,stock:product.stock,tag:product.tag};
+  if(!product.variants)return {id:'default',label:'Único',name:product.name,price:product.price,stock:product.stock,tag:product.tag,comingSoon:product.comingSoon};
   return product.variants.find(v=>v.id===variantId)||product.variants[0];
 }
 function displayName(product,variant=productVariant(product)){return variant?.name||product.name;}
 function displayDetail(product,variant=productVariant(product)){return variant?.size?`${product.desc} Medida: ${variant.size}.`:product.desc;}
 function variantLabel(variant){return variant.size?`${variant.label} · ${variant.size}`:variant.label;}
-function displayPrice(variant){return typeof variant.price==='number'?currency.format(variant.price):'Cotizar';}
-function stockText(product,variant=productVariant(product)){return variant.stock>0?`Disponible · ${variant.stock} unidad${variant.stock===1?'':'es'}`:'Sin stock';}
-function stockHelp(product,variant=productVariant(product)){return variant.stock>0?'Listo para separar por WhatsApp.':'Chatea y pide que te hagan uno.';}
+function displayPrice(variant){if(variant.comingSoon)return 'Preventa';return typeof variant.price==='number'?currency.format(variant.price):'Cotizar';}
+function stockText(product,variant=productVariant(product)){if(variant.comingSoon)return 'Próximamente · preventa abierta';return variant.stock>0?`Disponible · ${variant.stock} unidad${variant.stock===1?'':'es'}`:'Sin stock';}
+function stockHelp(product,variant=productVariant(product)){if(variant.comingSoon)return 'Escríbenos por WhatsApp para reservar el tuyo en preventa.';return variant.stock>0?'Listo para separar por WhatsApp.':'Chatea y pide que te hagan uno.';}
 function cartKey(id,variantId='default'){return `${id}:${variantId}`;}
 function cartQty(id,variantId='default'){const item=cart.find(i=>cartKey(i.id,i.variantId)===cartKey(id,variantId));return item?item.qty:0;}
 function canAdd(product,variant=productVariant(product)){return variant.stock>0&&cartQty(product.id,variant.id)<variant.stock;}
@@ -343,7 +345,7 @@ function renderProducts(){
   const q=els.search.value.trim().toLowerCase();
   const filtered=products.filter(p=>(activeCategory==='Todos'||p.category===activeCategory)&&(`${p.name} ${p.category} ${p.desc} ${displayName(p)}`.toLowerCase().includes(q)));
   els.count.textContent=`${filtered.length} producto${filtered.length===1?'':'s'}`;
-  els.products.innerHTML=filtered.map(p=>{const variant=productVariant(p);const img=productImages(p,variant)[0];const available=canAdd(p,variant);return `<article class="product" data-open-id="${p.id}"><button class="product-visual" data-open-id="${p.id}" aria-label="Ver ${displayName(p,variant)} ampliado"><span class="product-tag">${variant.stock>0?variant.tag:'Sin stock'}</span><img class="product-photo" src="${img}" alt="${displayName(p,variant)}" loading="lazy"></button><div class="product-body"><h3 class="product-title"><button data-open-id="${p.id}">${displayName(p,variant)}</button></h3><p class="stock-line ${variant.stock>0?'':'out'}">${stockText(p,variant)}</p><div class="product-foot"><span class="price">${displayPrice(variant)}</span><button class="add" data-id="${p.id}" aria-label="Agregar ${displayName(p,variant)}" ${available?'':'disabled'}>+</button></div></div></article>`}).join('')||'<p>No encontramos productos con ese criterio.</p>';
+  els.products.innerHTML=filtered.map(p=>{const variant=productVariant(p);const img=productImages(p,variant)[0];const available=canAdd(p,variant);return `<article class="product" data-open-id="${p.id}"><button class="product-visual" data-open-id="${p.id}" aria-label="Ver ${displayName(p,variant)} ampliado"><span class="product-tag ${variant.comingSoon?'soon':''}">${variant.stock>0||variant.comingSoon?variant.tag:'Sin stock'}</span><img class="product-photo" src="${img}" alt="${displayName(p,variant)}" loading="lazy"></button><div class="product-body"><h3 class="product-title"><button data-open-id="${p.id}">${displayName(p,variant)}</button></h3><p class="stock-line ${variant.stock>0?'':'out'}">${stockText(p,variant)}</p><div class="product-foot"><span class="price">${displayPrice(variant)}</span><button class="add" data-id="${p.id}" aria-label="Agregar ${displayName(p,variant)}" ${available?'':'disabled'}>+</button></div></div></article>`}).join('')||'<p>No encontramos productos con ese criterio.</p>';
   els.products.querySelectorAll('[data-open-id]').forEach(b=>b.onclick=()=>openProductModal(Number(b.dataset.openId)));
   els.products.querySelectorAll('.add').forEach(b=>b.onclick=(event)=>{event.stopPropagation();addToCart(Number(b.dataset.id));});
 }
@@ -360,8 +362,8 @@ function openProductModal(id,index=0){
   els.modalStock.classList.toggle('out',variant.stock<1);
   els.modalStockHelp.textContent=stockHelp(product,variant);
   renderVariantOptions(product);
-  document.getElementById('modalAdd').disabled=!canAdd(product,variant);
-  document.getElementById('modalAdd').textContent=variant.stock>0?'Agregar al carrito':'Pedir por chat';
+  document.getElementById('modalAdd').disabled=!canAdd(product,variant)&&!variant.comingSoon;
+  document.getElementById('modalAdd').textContent=variant.comingSoon?'Reservar en preventa':variant.stock>0?'Agregar al carrito':'Pedir por chat';
   renderModalImage();
   els.productModal.classList.add('open');
   els.productModalBackdrop.classList.add('open');
@@ -426,7 +428,7 @@ function checkout(){
 function askAboutProduct(){
   const product=getProduct(activeProductId);if(!product)return;
   const variant=productVariant(product);
-  const msg=variant.stock>0?`Hola, quiero consultar por ${displayName(product,variant)} en Siempreviva.`:`Hola, quiero pedir que me realicen ${displayName(product,variant)} en Siempreviva.`;
+  const msg=variant.comingSoon?`Hola, me interesa reservar ${displayName(product,variant)} en preventa en Siempreviva. ¿Me cuentan el precio y la fecha estimada?`:variant.stock>0?`Hola, quiero consultar por ${displayName(product,variant)} en Siempreviva.`:`Hola, quiero pedir que me realicen ${displayName(product,variant)} en Siempreviva.`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
 }
 function showToast(text='Producto agregado al carrito'){els.toast.textContent=text;els.toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>els.toast.classList.remove('show'),1800);}
