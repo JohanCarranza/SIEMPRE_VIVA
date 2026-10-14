@@ -290,7 +290,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
       <p id="modalDesc"></p>
       <div><p class="stock-line" id="modalStock"></p><p class="stock-help" id="modalStockHelp"></p></div>
       <div class="variant-options" id="modalVariants" aria-label="Variantes del producto"></div>
-      <div class="modal-meta"><span class="modal-pill" id="modalTag"></span><span class="modal-pill">Hasta 4 fotos por producto</span></div>
+      <div class="modal-meta"><span class="modal-pill" id="modalTag"></span><span class="modal-pill">Hecho a mano en Lima</span></div>
       <div class="modal-price" id="modalPrice"></div>
       <div class="modal-actions">
         <button class="btn accent" id="modalAdd">Agregar al carrito</button>
@@ -305,10 +305,10 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
 const WHATSAPP_NUMBER='51930628439';
 const currency=new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN'});
 const products=[
-  {id:1,name:'Nailong tejido',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'Muñeco tejido a mano inspirado en Nailong. Ideal para regalo personalizado.',images:['Images/NAILONG-1.png','Images/NAILONG-2.png','Images/NAILONG-3.png','Images/NAILONG-4.png']},
-  {id:2,name:'Charmander tejido',category:'Muñecos',price:55,stock:1,tag:'Disponible',desc:'Muñeco tejido a mano inspirado en Charmander, con acabado suave y decorativo.',images:['Images/CHARMANDER-1.png','Images/CHARMANDER-2.png','Images/CHARMANDER-3.png','Images/CHARMANDER-4.png']},
-  {id:3,name:'Capibara Pequeño',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'Capibara tejido a mano. Puedes pedirlo pequeño, normal o gigante.',images:['Images/CAPIBARA-PEQUEÑO-1.png','Images/CAPIBARA-PEQUEÑO-2.png','Images/CAPIBARA-PEQUEÑO-3.png','Images/CAPIBARA-PEQUEÑO-4.png'],variants:[{id:'pequeno',label:'Pequeño',name:'Capibara Pequeño',size:'5 cm',price:55,stock:1,tag:'Nuevo'},{id:'normal',label:'Normal',name:'Capibara Normal',size:'10 a 12 cm',price:null,stock:0,tag:'Por pedido'},{id:'gigante',label:'Gigante',name:'Capibara Gigante',size:'30 cm',price:null,stock:0,tag:'Por pedido'}]},
-  {id:4,name:'Capibara Llavero',category:'Accesorios',price:null,stock:0,tag:'Por pedido',desc:'Llavero tejido de capibara pequeño. Medida aproximada: 5 cm.',images:['Images/CAPIBARA-LLAVERO.png']},
+  {id:1,name:'Nailong tejido',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'El dinosaurio amarillo más querido de internet, tejido punto a punto a crochet. Pancita blanca, sonrisa contagiosa y bracitos abiertos listos para un abrazo. Pieza única, ideal para regalar a quien siempre te saca una sonrisa.',images:['Images/NAILONG-1.png','Images/NAILONG-2.png','Images/NAILONG-3.png','Images/NAILONG-4.png']},
+  {id:2,name:'Charmander tejido',category:'Muñecos',price:55,stock:1,tag:'Disponible',desc:'El Pokémon de fuego en versión amigurumi, tejido en hilo tipo peluche súper suave al tacto. Naranja intenso, pancita amarilla y una carita tierna que conquista a fans de todas las edades. Perfecto para coleccionar o regalar.',images:['Images/CHARMANDER-1.png','Images/CHARMANDER-2.png','Images/CHARMANDER-3.png','Images/CHARMANDER-4.png']},
+  {id:3,name:'Capibara Pequeño',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'El capibara más relajado de Lima, con su mochilita verde y esa cara de paz que todos queremos tener. Tejido a mano a crochet con hilo de algodón. Elige tu tamaño: el pequeño está listo para entrega; normal y gigante se tejen a pedido.',images:['Images/CAPIBARA-PEQUEÑO-1.png','Images/CAPIBARA-PEQUEÑO-2.png','Images/CAPIBARA-PEQUEÑO-3.png','Images/CAPIBARA-PEQUEÑO-4.png'],variants:[{id:'pequeno',label:'Pequeño',name:'Capibara Pequeño',size:'5 cm',price:55,stock:1,tag:'Nuevo'},{id:'normal',label:'Normal',name:'Capibara Normal',size:'10 a 12 cm',price:null,stock:0,tag:'Por pedido'},{id:'gigante',label:'Gigante',name:'Capibara Gigante',size:'30 cm',price:null,stock:0,tag:'Por pedido'}]},
+  {id:4,name:'Capibara Llavero',category:'Accesorios',price:null,stock:0,tag:'Por pedido',desc:'Nuestro capibara con mochilita, en versión llavero para llevarlo a todas partes. Tejido a mano, con argolla y cadena metálica resistentes. Ideal para tus llaves, mochila o cartuchera. Medida aproximada: 5 cm.',images:['Images/CAPIBARA-LLAVERO.png']},
   {id:5,name:'Anthurio Loki',category:'Flores',price:null,stock:0,tag:'Próximamente',comingSoon:true,desc:'Anthurio tejido a crochet en honor a Loki (Marvel). Combina sus tonos verdes característicos con detalles artesanales hechos punto a punto y un toque místico de colección. Una flor eterna para fans, que nunca se marchita.',images:['Images/ANTHURIO-LOKI-1.png','Images/ANTHURIO-LOKI-2.png']},
   {id:6,name:'Mini Gato',category:'Muñecos',price:10,stock:1,tag:'Nuevo',desc:'Gatito mini tejido a mano en tono crema, con orejitas, patitas y colita enrollada. Un detalle tierno para regalar o decorar tu escritorio.',images:['Images/MINI_GATO-1.png','Images/MINI_GATO-2.png','Images/MINI_GATO-3.png','Images/MINI_GATO-4.png']}
 ];
@@ -332,8 +332,8 @@ function displayName(product,variant=productVariant(product)){return variant?.na
 function displayDetail(product,variant=productVariant(product)){return variant?.size?`${product.desc} Medida: ${variant.size}.`:product.desc;}
 function variantLabel(variant){return variant.size?`${variant.label} · ${variant.size}`:variant.label;}
 function displayPrice(variant){if(variant.comingSoon)return 'Preventa';return typeof variant.price==='number'?currency.format(variant.price):'Cotizar';}
-function stockText(product,variant=productVariant(product)){if(variant.comingSoon)return 'Próximamente · preventa abierta';return variant.stock>0?`Disponible · ${variant.stock} unidad${variant.stock===1?'':'es'}`:'Sin stock';}
-function stockHelp(product,variant=productVariant(product)){if(variant.comingSoon)return 'Escríbenos por WhatsApp para reservar el tuyo en preventa.';return variant.stock>0?'Listo para separar por WhatsApp.':'Chatea y pide que te hagan uno.';}
+function stockText(product,variant=productVariant(product)){if(variant.comingSoon)return 'Próximamente · preventa abierta';return variant.stock>0?`Disponible · ${variant.stock} unidad${variant.stock===1?'':'es'}`:'Por pedido · lo tejemos para ti';}
+function stockHelp(product,variant=productVariant(product)){if(variant.comingSoon)return 'Escríbenos por WhatsApp para reservar el tuyo en preventa.';return variant.stock>0?'Listo para separar por WhatsApp.':'Escríbenos y te confirmamos precio y tiempo de elaboración.';}
 function cartKey(id,variantId='default'){return `${id}:${variantId}`;}
 function cartQty(id,variantId='default'){const item=cart.find(i=>cartKey(i.id,i.variantId)===cartKey(id,variantId));return item?item.qty:0;}
 function canAdd(product,variant=productVariant(product)){return variant.stock>0&&cartQty(product.id,variant.id)<variant.stock;}
@@ -346,9 +346,9 @@ function renderProducts(){
   const q=els.search.value.trim().toLowerCase();
   const filtered=products.filter(p=>(activeCategory==='Todos'||p.category===activeCategory)&&(`${p.name} ${p.category} ${p.desc} ${displayName(p)}`.toLowerCase().includes(q)));
   els.count.textContent=`${filtered.length} producto${filtered.length===1?'':'s'}`;
-  els.products.innerHTML=filtered.map(p=>{const variant=productVariant(p);const img=productImages(p,variant)[0];const available=canAdd(p,variant);return `<article class="product" data-open-id="${p.id}"><button class="product-visual" data-open-id="${p.id}" aria-label="Ver ${displayName(p,variant)} ampliado"><span class="product-tag ${variant.comingSoon?'soon':''}">${variant.stock>0||variant.comingSoon?variant.tag:'Sin stock'}</span><img class="product-photo" src="${img}" alt="${displayName(p,variant)}" loading="lazy"></button><div class="product-body"><h3 class="product-title"><button data-open-id="${p.id}">${displayName(p,variant)}</button></h3><p class="stock-line ${variant.stock>0?'':'out'}">${stockText(p,variant)}</p><div class="product-foot"><span class="price">${displayPrice(variant)}</span><button class="add" data-id="${p.id}" aria-label="Agregar ${displayName(p,variant)}" ${available?'':'disabled'}>+</button></div></div></article>`}).join('')||'<p>No encontramos productos con ese criterio.</p>';
+  els.products.innerHTML=filtered.map(p=>{const variant=productVariant(p);const img=productImages(p,variant)[0];const available=canAdd(p,variant);return `<article class="product" data-open-id="${p.id}"><button class="product-visual" data-open-id="${p.id}" aria-label="Ver ${displayName(p,variant)} ampliado"><span class="product-tag ${variant.comingSoon?'soon':''}">${variant.tag}</span><img class="product-photo" src="${img}" alt="${displayName(p,variant)}" loading="lazy"></button><div class="product-body"><h3 class="product-title"><button data-open-id="${p.id}">${displayName(p,variant)}</button></h3><p class="stock-line ${variant.stock>0?'':'out'}">${stockText(p,variant)}</p><div class="product-foot"><span class="price">${displayPrice(variant)}</span><button class="add" data-id="${p.id}" aria-label="Agregar ${displayName(p,variant)}" ${available||variant.stock<1?'':'disabled'}>+</button></div></div></article>`}).join('')||'<p>No encontramos productos con ese criterio.</p>';
   els.products.querySelectorAll('[data-open-id]').forEach(b=>b.onclick=()=>openProductModal(Number(b.dataset.openId)));
-  els.products.querySelectorAll('.add').forEach(b=>b.onclick=(event)=>{event.stopPropagation();addToCart(Number(b.dataset.id));});
+  els.products.querySelectorAll('.add').forEach(b=>b.onclick=(event)=>{event.stopPropagation();const id=Number(b.dataset.id);if(productVariant(getProduct(id)).stock<1){openProductModal(id);return;}addToCart(id);});
 }
 function openProductModal(id,index=0){
   const product=getProduct(id);if(!product)return;
@@ -363,8 +363,8 @@ function openProductModal(id,index=0){
   els.modalStock.classList.toggle('out',variant.stock<1);
   els.modalStockHelp.textContent=stockHelp(product,variant);
   renderVariantOptions(product);
-  document.getElementById('modalAdd').disabled=!canAdd(product,variant)&&!variant.comingSoon;
-  document.getElementById('modalAdd').textContent=variant.comingSoon?'Reservar en preventa':variant.stock>0?'Agregar al carrito':'Pedir por chat';
+  document.getElementById('modalAdd').disabled=variant.stock>0&&!canAdd(product,variant);
+  document.getElementById('modalAdd').textContent=variant.comingSoon?'Reservar en preventa':variant.stock>0?'Agregar al carrito':'Pedir por WhatsApp';
   renderModalImage();
   els.productModal.classList.add('open');
   els.productModalBackdrop.classList.add('open');
@@ -429,7 +429,7 @@ function checkout(){
 function askAboutProduct(){
   const product=getProduct(activeProductId);if(!product)return;
   const variant=productVariant(product);
-  const msg=variant.comingSoon?`Hola, me interesa reservar ${displayName(product,variant)} en preventa en Siempreviva. ¿Me cuentan el precio y la fecha estimada?`:variant.stock>0?`Hola, quiero consultar por ${displayName(product,variant)} en Siempreviva.`:`Hola, quiero pedir que me realicen ${displayName(product,variant)} en Siempreviva.`;
+  const msg=variant.comingSoon?`Hola, me interesa reservar ${displayName(product,variant)} en preventa en Siempreviva. ¿Me cuentan el precio y la fecha estimada?`:variant.stock>0?`Hola, quiero consultar por ${displayName(product,variant)} en Siempreviva.`:`Hola, quiero pedir que me tejan ${displayName(product,variant)}${variant.size?` (${variant.size})`:''} en Siempreviva. ¿Me cuentan precio y tiempo de elaboración?`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
 }
 function showToast(text='Producto agregado al carrito'){els.toast.textContent=text;els.toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>els.toast.classList.remove('show'),1800);}
