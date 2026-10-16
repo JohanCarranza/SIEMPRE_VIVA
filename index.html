@@ -123,6 +123,19 @@ section{padding:78px 0}
 .modal-price{font-size:24px;font-weight:800}
 .modal-meta{display:flex;gap:10px;flex-wrap:wrap}
 .modal-pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+.modal-info{max-height:calc(100vh - 28px);overflow-y:auto}
+.modal-info .modal-actions{position:sticky;bottom:-34px;background:var(--card);padding:12px 0 34px;margin-bottom:-34px}
+.modal-info .tagline{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink);margin-top:-6px}
+.tagline:empty,.product-sheet:empty{display:none}
+.product-sheet{display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
+.sheet-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:var(--muted);margin-bottom:8px}
+.swatches{display:flex;gap:12px;flex-wrap:wrap}
+.swatch{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted);text-align:center;max-width:62px;line-height:1.2}
+.swatch i{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:block}
+.sheet-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:13px;color:var(--muted)}
+.sheet-list.single{grid-template-columns:1fr}
+.sheet-list li::before{content:'·';color:var(--accent);font-weight:800;margin-right:6px}
+.sheet-list strong{color:var(--ink);font-weight:700}
 .variant-options{display:flex;gap:8px;flex-wrap:wrap}
 .variant-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 13px;font-size:12px;font-weight:800;cursor:pointer;color:var(--muted)}
 .variant-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
@@ -169,7 +182,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
 .note{font-size:11px;color:var(--muted);margin-top:10px;text-align:center}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:140;font-size:14px}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:960px){.hero-grid,.value-grid{grid-template-columns:1fr}.hero-card{min-height:390px}.hero-photo{min-height:390px}.navlinks{display:none}.process{grid-template-columns:1fr}.cta-box{align-items:flex-start;flex-direction:column}.modal-grid{grid-template-columns:1fr;min-height:0}.product-modal{overflow:auto}.modal-gallery{grid-template-columns:1fr;grid-template-areas:"stage" "thumbs";min-height:auto;align-content:start}.modal-stage{width:min(100%,calc((100vh - 260px)*.75),460px);aspect-ratio:3/4}.thumbs{width:min(100%,460px);max-height:none;display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:0 2px 6px}.thumb{flex:0 0 calc((100% - 20px)/3.35);width:auto}.modal-info{padding:30px}}
+@media(max-width:960px){.hero-grid,.value-grid{grid-template-columns:1fr}.hero-card{min-height:390px}.hero-photo{min-height:390px}.navlinks{display:none}.process{grid-template-columns:1fr}.cta-box{align-items:flex-start;flex-direction:column}.modal-grid{grid-template-columns:1fr;min-height:0}.product-modal{overflow:auto}.modal-gallery{grid-template-columns:1fr;grid-template-areas:"stage" "thumbs";min-height:auto;align-content:start}.modal-stage{width:min(100%,calc((100vh - 260px)*.75),460px);aspect-ratio:3/4}.thumbs{width:min(100%,460px);max-height:none;display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:0 2px 6px}.thumb{flex:0 0 calc((100% - 20px)/3.35);width:auto}.modal-info{padding:30px;max-height:none;overflow:visible}}
 @media(max-width:620px){.hero{padding-top:48px}.product{flex-basis:82vw}.stats-grid{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.section-head{display:block}.section-head p{margin-top:12px}.catalog-tools{align-items:stretch;flex-direction:column}.search{max-width:none}.benefits{grid-template-columns:1fr}.cta-box{padding:34px 24px}.nav{height:68px}.brand{font-size:23px}.product-modal{width:calc(100% - 16px);max-height:calc(100vh - 16px);border-radius:18px}.modal-gallery{padding:10px}.modal-stage{width:min(100%,calc((100vh - 290px)*.75),360px);aspect-ratio:3/4}.thumbs{gap:7px;width:100%}.thumb{flex-basis:calc((100% - 14px)/3.35)}.modal-info{padding:24px}.modal-actions .btn{width:100%}}
 </style>
 </head>
@@ -296,7 +309,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
     <div class="modal-info">
       <span class="product-category" id="modalCategory"></span>
       <h3 id="modalTitle"></h3>
+      <p class="tagline" id="modalTagline"></p>
       <p id="modalDesc"></p>
+      <div class="product-sheet" id="modalSheet"></div>
       <div><p class="stock-line" id="modalStock"></p><p class="stock-help" id="modalStockHelp"></p></div>
       <div class="variant-options" id="modalVariants" aria-label="Variantes del producto"></div>
       <div class="modal-meta"><span class="modal-pill" id="modalTag"></span><span class="modal-pill">Hecho a mano en Lima</span></div>
@@ -318,7 +333,7 @@ const products=[
   {id:2,name:'Charmander tejido',category:'Muñecos',price:55,stock:1,tag:'Disponible',desc:'El Pokémon de fuego en versión amigurumi, tejido en hilo tipo peluche súper suave al tacto. Naranja intenso, pancita amarilla y una carita tierna que conquista a fans de todas las edades. Perfecto para coleccionar o regalar.',images:['Images/CHARMANDER-1.jpg','Images/CHARMANDER-2.jpg','Images/CHARMANDER-3.jpg','Images/CHARMANDER-4.jpg']},
   {id:3,name:'Capibara tejido',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'El capibara más relajado de Lima, con su mochilita verde y esa cara de paz que todos queremos tener. Tejido a mano a crochet con hilo de algodón. Elige tu tamaño: el pequeño está listo para entrega; normal y gigante se tejen a pedido.',images:['Images/CAPIBARA-PEQUENO-1.jpg','Images/CAPIBARA-PEQUENO-2.jpg','Images/CAPIBARA-PEQUENO-3.jpg','Images/CAPIBARA-PEQUENO-4.jpg'],variants:[{id:'pequeno',label:'Pequeño',name:'Capibara Pequeño',size:'5 cm',price:55,stock:1,tag:'Nuevo'},{id:'normal',label:'Normal',name:'Capibara Normal',size:'10 a 12 cm',price:null,stock:0,tag:'Por pedido'},{id:'gigante',label:'Gigante',name:'Capibara Gigante',size:'30 cm',price:null,stock:0,tag:'Por pedido'}]},
   {id:4,name:'Capibara Llavero',category:'Accesorios',price:null,stock:0,tag:'Por pedido',desc:'Nuestro capibara con mochilita, en versión llavero para llevarlo a todas partes. Tejido a mano, con argolla y cadena metálica resistentes. Ideal para tus llaves, mochila o cartuchera. Medida aproximada: 5 cm.',images:['Images/CAPIBARA-LLAVERO.jpg']},
-  {id:5,name:'Anthurio Loki',category:'Flores',price:null,stock:0,tag:'Próximamente',comingSoon:true,desc:'Anthurio tejido a crochet en honor a Loki (Marvel). Combina sus tonos verdes característicos con detalles artesanales hechos punto a punto y un toque místico de colección. Una flor eterna para fans, que nunca se marchita.',images:['Images/ANTHURIO-LOKI-1.jpg','Images/ANTHURIO-LOKI-2.jpg']},
+  {id:5,name:'Anthurio Loki',category:'Flores',price:null,stock:0,tag:'Próximamente',comingSoon:true,desc:'Anthurio tejido a crochet en honor a Loki (Marvel). Combina sus tonos verdes característicos con detalles artesanales hechos punto a punto y un toque místico de colección. Una flor eterna para fans, que nunca se marchita.',tagline:'“Caos y elegancia”',sheet:{palette:[{name:'Verde oscuro',color:'#1F4A35'},{name:'Verde olivo',color:'#6B8E3D'},{name:'Dorado',color:'#C9963A'},{name:'Beige',color:'#E8DCC8'},{name:'Marrón claro',color:'#8A5A3B'}],includes:['1 anturio protagonista','2 a 3 hojas tejidas','1 ramita con esferas doradas','Relleno de musgo y piedritas'],details:[['Medidas','13 a 18 cm de alto · 8 a 10 cm de ancho'],['Maceta','Verde oscuro con el símbolo de Loki en dorado']]},images:['Images/ANTHURIO-LOKI-1.jpg','Images/LOKI-VISTA-FRONTAL.jpg','Images/LOKI-VISTA-LATERAL.jpg','Images/LOKI-VISTA-TRASERA.jpg','Images/LOKI-VISTA-SUPERIOR.jpg','Images/LOKI-DETALLE-BORDE.jpg','Images/LOKI-DETALLE-ESPADICE.jpg','Images/LOKI-DETALLE-RAMITA.jpg','Images/LOKI-DETALLE-HOJA.jpg','Images/LOKI-MACETA.jpg','Images/LOKI-MEDIDAS.jpg','Images/ANTHURIO-LOKI-2.jpg']},
   {id:6,name:'Mini Gato',category:'Muñecos',price:10,stock:1,tag:'Nuevo',desc:'Gatito mini tejido a mano en tono crema, con orejitas, patitas y colita enrollada. Un detalle tierno para regalar o decorar tu escritorio.',images:['Images/MINI_GATO-1.jpg','Images/MINI_GATO-2.jpg','Images/MINI_GATO-3.jpg','Images/MINI_GATO-4.jpg']}
 ];
 let activeCategory='Todos';
@@ -328,10 +343,10 @@ let selectedVariants={3:'pequeno'};
 let cart=JSON.parse(localStorage.getItem('siempreviva-cart')||'[]').filter(item=>products.some(product=>product.id===item.id)).map(item=>{const product=products.find(p=>p.id===item.id);const variant=productVariant(product,item.variantId);return {...item,variantId:variant.id,qty:Math.min(item.qty,variant.stock)}}).filter(item=>item.qty>0);
 const els={
   products:document.getElementById('products'),filters:document.getElementById('filters'),search:document.getElementById('searchInput'),count:document.getElementById('resultCount'),cartCount:document.getElementById('cartCount'),drawer:document.getElementById('drawer'),backdrop:document.getElementById('backdrop'),cartItems:document.getElementById('cartItems'),cartTotal:document.getElementById('cartTotal'),toast:document.getElementById('toast'),
-  productModal:document.getElementById('productModal'),productModalBackdrop:document.getElementById('productModalBackdrop'),modalImage:document.getElementById('modalImage'),modalThumbs:document.getElementById('modalThumbs'),modalCategory:document.getElementById('modalCategory'),modalTitle:document.getElementById('modalTitle'),modalDesc:document.getElementById('modalDesc'),modalTag:document.getElementById('modalTag'),modalPrice:document.getElementById('modalPrice'),modalStock:document.getElementById('modalStock'),modalStockHelp:document.getElementById('modalStockHelp'),modalVariants:document.getElementById('modalVariants')
+  productModal:document.getElementById('productModal'),productModalBackdrop:document.getElementById('productModalBackdrop'),modalImage:document.getElementById('modalImage'),modalThumbs:document.getElementById('modalThumbs'),modalCategory:document.getElementById('modalCategory'),modalTitle:document.getElementById('modalTitle'),modalDesc:document.getElementById('modalDesc'),modalTag:document.getElementById('modalTag'),modalPrice:document.getElementById('modalPrice'),modalStock:document.getElementById('modalStock'),modalStockHelp:document.getElementById('modalStockHelp'),modalVariants:document.getElementById('modalVariants'),modalTagline:document.getElementById('modalTagline'),modalSheet:document.getElementById('modalSheet')
 };
 function getProduct(id){return products.find(p=>p.id===id);}
-function productImages(product,variant=productVariant(product)){return (variant?.images||product.images).slice(0,4);}
+function productImages(product,variant=productVariant(product)){return (variant?.images||product.images).slice(0,12);}
 function productVariant(product,variantId=selectedVariants[product?.id]){
   if(!product)return null;
   if(!product.variants)return {id:'default',label:'Único',name:product.name,price:product.price,stock:product.stock,tag:product.tag,comingSoon:product.comingSoon};
@@ -360,6 +375,14 @@ function renderProducts(){
   els.products.querySelectorAll('[data-open-id]').forEach(b=>b.onclick=()=>openProductModal(Number(b.dataset.openId)));
   els.products.querySelectorAll('.add').forEach(b=>b.onclick=(event)=>{event.stopPropagation();const id=Number(b.dataset.id);if(productVariant(getProduct(id)).stock<1){openProductModal(id);return;}addToCart(id);});
 }
+function renderSheet(sheet){
+  if(!sheet)return '';
+  const parts=[];
+  if(sheet.palette?.length)parts.push(`<div><p class="sheet-label">Paleta de colores</p><div class="swatches">${sheet.palette.map(c=>`<span class="swatch"><i style="background:${c.color}"></i>${c.name}</span>`).join('')}</div></div>`);
+  if(sheet.includes?.length)parts.push(`<div><p class="sheet-label">Incluye</p><ul class="sheet-list">${sheet.includes.map(i=>`<li>${i}</li>`).join('')}</ul></div>`);
+  if(sheet.details?.length)parts.push(`<div><p class="sheet-label">Detalles</p><ul class="sheet-list single">${sheet.details.map(([k,v])=>`<li><strong>${k}:</strong> ${v}</li>`).join('')}</ul></div>`);
+  return parts.join('');
+}
 function openProductModal(id,index=0){
   const product=getProduct(id);if(!product)return;
   const variant=productVariant(product);
@@ -367,6 +390,8 @@ function openProductModal(id,index=0){
   els.modalCategory.textContent=product.category;
   els.modalTitle.textContent=displayName(product,variant);
   els.modalDesc.textContent=displayDetail(product,variant);
+  els.modalTagline.textContent=product.tagline||'';
+  els.modalSheet.innerHTML=renderSheet(product.sheet);
   els.modalTag.textContent=variant.tag;
   els.modalPrice.textContent=displayPrice(variant);
   els.modalStock.textContent=stockText(product,variant);
