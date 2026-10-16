@@ -111,7 +111,23 @@ section{padding:78px 0}
 .modal-gallery{background:#EFEAE2;display:grid;grid-template-columns:86px 1fr;grid-template-areas:"thumbs stage";align-content:center;align-items:center;justify-items:center;gap:14px;padding:18px;min-width:0}
 .modal-stage{grid-area:stage;position:relative;width:min(100%,calc((100vh - 90px)*.75),540px);aspect-ratio:3/4;min-height:0;border-radius:18px;overflow:hidden;background:#F3EEE7;display:grid;place-items:center}
 .modal-stage img{width:100%;height:100%;object-fit:contain;object-position:center center}
-.gallery-nav{display:none}
+.modal-stage img{transition:opacity .2s}
+.modal-stage img.fading{opacity:0}
+.gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:999px;background:rgba(255,255,255,.88);color:var(--ink);font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center;padding-bottom:3px;box-shadow:0 4px 14px rgba(0,0,0,.12);transition:.2s;z-index:2}
+.gallery-nav:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
+.gallery-nav.prev{left:10px}.gallery-nav.next{right:10px}
+.gallery-count{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(23,23,23,.62);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;z-index:2}
+.modal-stage.single .gallery-nav,.modal-stage.single .gallery-count{display:none}
+.catalog-rail{position:relative}
+.rail-btn{position:absolute;top:calc(50% - 60px);z-index:5;width:46px;height:46px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:28px;line-height:1;padding-bottom:4px;cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow);transition:.2s}
+.rail-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rail-btn.prev{left:-20px}.rail-btn.next{right:-20px}
+.rail-btn[hidden]{display:none}
+.wa-float{position:fixed;right:20px;bottom:20px;z-index:70;width:56px;height:56px;border-radius:999px;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:.25s}
+.wa-float:hover{transform:translateY(-3px) scale(1.04)}
+.badge.bump{animation:bump .4s ease}
+@keyframes bump{40%{transform:scale(1.35)}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 .thumbs{grid-area:thumbs;width:86px;max-height:min(calc(100vh - 90px),720px);display:flex;flex-direction:column;gap:10px;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-snap-type:y proximity;padding:2px 6px 2px 2px;scrollbar-width:thin}
 .thumb{flex:0 0 76px;width:76px;aspect-ratio:3/4;border:2px solid transparent;border-radius:12px;overflow:hidden;background:#fff;padding:0;cursor:pointer;scroll-snap-align:start}
@@ -182,8 +198,8 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
 .note{font-size:11px;color:var(--muted);margin-top:10px;text-align:center}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:140;font-size:14px}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:960px){.hero-grid,.value-grid{grid-template-columns:1fr}.hero-card{min-height:390px}.hero-photo{min-height:390px}.navlinks{display:none}.process{grid-template-columns:1fr}.cta-box{align-items:flex-start;flex-direction:column}.modal-grid{grid-template-columns:1fr;min-height:0}.product-modal{overflow:auto}.modal-gallery{grid-template-columns:1fr;grid-template-areas:"stage" "thumbs";min-height:auto;align-content:start}.modal-stage{width:min(100%,calc((100vh - 260px)*.75),460px);aspect-ratio:3/4}.thumbs{width:min(100%,460px);max-height:none;display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:0 2px 6px}.thumb{flex:0 0 calc((100% - 20px)/3.35);width:auto}.modal-info{padding:30px;max-height:none;overflow:visible}}
-@media(max-width:620px){.hero{padding-top:48px}.product{flex-basis:82vw}.stats-grid{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.section-head{display:block}.section-head p{margin-top:12px}.catalog-tools{align-items:stretch;flex-direction:column}.search{max-width:none}.benefits{grid-template-columns:1fr}.cta-box{padding:34px 24px}.nav{height:68px}.brand{font-size:23px}.product-modal{width:calc(100% - 16px);max-height:calc(100vh - 16px);border-radius:18px}.modal-gallery{padding:10px}.modal-stage{width:min(100%,calc((100vh - 290px)*.75),360px);aspect-ratio:3/4}.thumbs{gap:7px;width:100%}.thumb{flex-basis:calc((100% - 14px)/3.35)}.modal-info{padding:24px}.modal-actions .btn{width:100%}}
+@media(max-width:960px){.hero-grid,.value-grid{grid-template-columns:1fr}.hero-card{min-height:390px}.hero-photo{min-height:390px}.navlinks{display:none}.process{grid-template-columns:1fr}.cta-box{align-items:flex-start;flex-direction:column}.modal-grid{grid-template-columns:1fr;min-height:0}.product-modal{overflow:auto}.modal-gallery{grid-template-columns:1fr;grid-template-areas:"stage" "thumbs";min-height:auto;align-content:start}.modal-stage{width:min(100%,calc((100vh - 260px)*.75),460px);aspect-ratio:3/4}.thumbs{width:min(100%,460px);max-height:none;display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:0 2px 6px}.thumb{flex:0 0 calc((100% - 20px)/3.35);width:auto}.modal-info{padding:30px;max-height:none;overflow:visible}.modal-close{position:sticky;top:10px;margin:10px 10px -52px auto;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.12)}.rail-btn{display:none}}
+@media(max-width:620px){.hero{padding-top:48px}.product{flex-basis:82vw}.stats-grid{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}.section-head{display:block}.section-head p{margin-top:12px}.catalog-tools{align-items:stretch;flex-direction:column}.search{max-width:none}.benefits{grid-template-columns:1fr}.cta-box{padding:34px 24px}.nav{height:68px}.brand{font-size:23px}.product-modal{width:calc(100% - 16px);max-height:calc(100vh - 16px);border-radius:18px}.modal-gallery{padding:10px}.modal-stage{width:min(100%,calc((100vh - 290px)*.75),360px);aspect-ratio:3/4}.thumbs{gap:7px;width:100%}.thumb{flex-basis:calc((100% - 14px)/3.35)}.modal-info{padding:24px}.modal-actions .btn{width:100%;padding:11px 18px}.modal-info .modal-actions{gap:8px;bottom:-24px;padding:10px 0 24px;margin-bottom:-24px}.toast{bottom:88px}.wa-float{right:16px;bottom:16px;width:52px;height:52px}}
 </style>
 </head>
 <body>
@@ -240,7 +256,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
         <input class="search" id="searchInput" type="search" placeholder="Buscar muñecos, flores, accesorios..." aria-label="Buscar productos">
         <span class="result-count" id="resultCount"></span>
       </div>
-      <div class="products" id="products"></div>
+      <div class="catalog-rail">
+        <button class="rail-btn prev" id="railPrev" aria-label="Ver productos anteriores">&#8249;</button>
+        <div class="products" id="products"></div>
+        <button class="rail-btn next" id="railNext" aria-label="Ver más productos">&#8250;</button>
+      </div>
     </div>
   </section>
 
@@ -303,6 +323,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
     <div class="modal-gallery">
       <div class="modal-stage">
         <img id="modalImage" src="" alt="">
+        <button class="gallery-nav prev" id="galleryPrev" aria-label="Foto anterior">&#8249;</button>
+        <button class="gallery-nav next" id="galleryNext" aria-label="Foto siguiente">&#8250;</button>
+        <span class="gallery-count" id="galleryCount"></span>
       </div>
       <div class="thumbs" id="modalThumbs" aria-label="Fotos del producto"></div>
     </div>
@@ -324,6 +347,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted)}
   </div>
 </section>
 <div class="toast" id="toast">Producto agregado al carrito</div>
+<a class="wa-float" href="https://wa.me/51930628439?text=Hola%2C%20tengo%20una%20consulta%20sobre%20Siempreviva" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.22 4.25-9.47 9.48-9.47 2.53 0 4.91.99 6.7 2.78a9.4 9.4 0 0 1 2.77 6.7c0 5.22-4.25 9.46-9.47 9.46zm8.06-17.53A11.32 11.32 0 0 0 12.04.63C5.76.63.64 5.74.64 12.03c0 2.01.52 3.97 1.52 5.7L.54 23.37l5.77-1.51a11.4 11.4 0 0 0 5.73 1.46h.01c6.28 0 11.4-5.11 11.4-11.4 0-3.04-1.19-5.9-3.35-8.05z"/></svg></a>
 
 <script>
 const WHATSAPP_NUMBER='51930628439';
@@ -333,7 +357,7 @@ const products=[
   {id:2,name:'Charmander tejido',category:'Muñecos',price:55,stock:1,tag:'Disponible',desc:'El Pokémon de fuego en versión amigurumi, tejido en hilo tipo peluche súper suave al tacto. Naranja intenso, pancita amarilla y una carita tierna que conquista a fans de todas las edades. Perfecto para coleccionar o regalar.',images:['Images/CHARMANDER-1.jpg','Images/CHARMANDER-2.jpg','Images/CHARMANDER-3.jpg','Images/CHARMANDER-4.jpg']},
   {id:3,name:'Capibara tejido',category:'Muñecos',price:55,stock:1,tag:'Nuevo',desc:'El capibara más relajado de Lima, con su mochilita verde y esa cara de paz que todos queremos tener. Tejido a mano a crochet con hilo de algodón. Elige tu tamaño: el pequeño está listo para entrega; normal y gigante se tejen a pedido.',images:['Images/CAPIBARA-PEQUENO-1.jpg','Images/CAPIBARA-PEQUENO-2.jpg','Images/CAPIBARA-PEQUENO-3.jpg','Images/CAPIBARA-PEQUENO-4.jpg'],variants:[{id:'pequeno',label:'Pequeño',name:'Capibara Pequeño',size:'5 cm',price:55,stock:1,tag:'Nuevo'},{id:'normal',label:'Normal',name:'Capibara Normal',size:'10 a 12 cm',price:null,stock:0,tag:'Por pedido'},{id:'gigante',label:'Gigante',name:'Capibara Gigante',size:'30 cm',price:null,stock:0,tag:'Por pedido'}]},
   {id:4,name:'Capibara Llavero',category:'Accesorios',price:null,stock:0,tag:'Por pedido',desc:'Nuestro capibara con mochilita, en versión llavero para llevarlo a todas partes. Tejido a mano, con argolla y cadena metálica resistentes. Ideal para tus llaves, mochila o cartuchera. Medida aproximada: 5 cm.',images:['Images/CAPIBARA-LLAVERO.jpg']},
-  {id:5,name:'Anthurio Loki',category:'Flores',price:null,stock:0,tag:'Próximamente',comingSoon:true,desc:'Anthurio tejido a crochet en honor a Loki (Marvel). Combina sus tonos verdes característicos con detalles artesanales hechos punto a punto y un toque místico de colección. Una flor eterna para fans, que nunca se marchita.',tagline:'“Caos y elegancia”',sheet:{palette:[{name:'Verde oscuro',color:'#1F4A35'},{name:'Verde olivo',color:'#6B8E3D'},{name:'Dorado',color:'#C9963A'},{name:'Beige',color:'#E8DCC8'},{name:'Marrón claro',color:'#8A5A3B'}],includes:['1 anturio protagonista','2 a 3 hojas tejidas','1 ramita con esferas doradas','Relleno de musgo y piedritas'],details:[['Medidas','13 a 18 cm de alto · 8 a 10 cm de ancho'],['Maceta','Verde oscuro con el símbolo de Loki en dorado']]},images:['Images/ANTHURIO-LOKI-1.jpg','Images/LOKI-VISTA-FRONTAL.jpg','Images/LOKI-VISTA-LATERAL.jpg','Images/LOKI-VISTA-TRASERA.jpg','Images/LOKI-VISTA-SUPERIOR.jpg','Images/LOKI-DETALLES-FLOR.jpg','Images/LOKI-DETALLES-MACETA.jpg','Images/ANTHURIO-LOKI-2.jpg']},
+  {id:5,name:'Anthurio Loki',category:'Flores',price:null,stock:0,tag:'Próximamente',comingSoon:true,desc:'Anthurio tejido a crochet en honor a Loki (Marvel). Combina sus tonos verdes característicos con detalles artesanales hechos punto a punto y un toque místico de colección. Una flor eterna para fans, que nunca se marchita.',tagline:'“Caos y elegancia”',sheet:{palette:[{name:'Verde oscuro',color:'#1F4A35'},{name:'Verde olivo',color:'#6B8E3D'},{name:'Dorado',color:'#C9963A'},{name:'Beige',color:'#E8DCC8'},{name:'Marrón claro',color:'#8A5A3B'}],includes:['1 anturio protagonista','2 a 3 hojas tejidas','1 ramita con esferas doradas','Relleno de musgo y piedritas'],details:[['Medidas','13 a 18 cm de alto · 8 a 10 cm de ancho'],['Maceta','Verde oscuro con el símbolo de Loki en dorado']]},images:['Images/ANTHURIO-LOKI-1.jpg','Images/LOKI-VISTA-LATERAL.jpg','Images/LOKI-VISTA-TRASERA.jpg','Images/LOKI-VISTA-SUPERIOR.jpg','Images/LOKI-DETALLES-FLOR.jpg','Images/LOKI-DETALLES-MACETA.jpg','Images/ANTHURIO-LOKI-2.jpg']},
   {id:6,name:'Mini Gato',category:'Muñecos',price:10,stock:1,tag:'Nuevo',desc:'Gatito mini tejido a mano en tono crema, con orejitas, patitas y colita enrollada. Un detalle tierno para regalar o decorar tu escritorio.',images:['Images/MINI_GATO-1.jpg','Images/MINI_GATO-2.jpg','Images/MINI_GATO-3.jpg','Images/MINI_GATO-4.jpg']}
 ];
 let activeCategory='Todos';
@@ -365,7 +389,7 @@ function canAdd(product,variant=productVariant(product)){return variant.stock>0&
 function renderFilters(){
   const cats=['Todos',...new Set(products.map(p=>p.category))];
   els.filters.innerHTML=cats.map(c=>`<button class="filter-btn ${c===activeCategory?'active':''}" data-category="${c}">${c}</button>`).join('');
-  els.filters.querySelectorAll('button').forEach(b=>b.onclick=()=>{activeCategory=b.dataset.category;renderFilters();renderProducts();});
+  els.filters.querySelectorAll('button').forEach(b=>b.onclick=()=>{activeCategory=b.dataset.category;els.products.scrollLeft=0;renderFilters();renderProducts();});
 }
 function renderProducts(){
   const q=els.search.value.trim().toLowerCase();
@@ -374,6 +398,7 @@ function renderProducts(){
   els.products.innerHTML=filtered.map(p=>{const variant=productVariant(p);const img=productImages(p,variant)[0];const available=canAdd(p,variant);return `<article class="product" data-open-id="${p.id}"><button class="product-visual" data-open-id="${p.id}" aria-label="Ver ${displayName(p,variant)} ampliado"><span class="product-tag ${variant.comingSoon?'soon':''}">${variant.tag}</span><img class="product-photo" src="${img}" alt="${displayName(p,variant)}" loading="lazy"></button><div class="product-body"><h3 class="product-title"><button data-open-id="${p.id}">${p.name}</button></h3><p class="stock-line ${variant.stock>0?'':'out'}">${stockText(p,variant)}</p><div class="product-foot"><span class="price">${cardPrice(p,variant)}</span><button class="add" data-id="${p.id}" aria-label="Agregar ${displayName(p,variant)}" ${available||variant.stock<1?'':'disabled'}>+</button></div></div></article>`}).join('')||'<p>No encontramos productos con ese criterio.</p>';
   els.products.querySelectorAll('[data-open-id]').forEach(b=>b.onclick=()=>openProductModal(Number(b.dataset.openId)));
   els.products.querySelectorAll('.add').forEach(b=>b.onclick=(event)=>{event.stopPropagation();const id=Number(b.dataset.id);if(productVariant(getProduct(id)).stock<1){openProductModal(id);return;}addToCart(id);});
+  updateRail();
 }
 function renderSheet(sheet){
   if(!sheet)return '';
@@ -386,6 +411,7 @@ function renderSheet(sheet){
 function openProductModal(id,index=0){
   const product=getProduct(id);if(!product)return;
   const variant=productVariant(product);
+  if(activeProductId!==id||!els.productModal.classList.contains('open')){els.productModal.scrollTop=0;document.querySelector('.modal-info').scrollTop=0;}
   activeProductId=id;activeImageIndex=index;
   els.modalCategory.textContent=product.category;
   els.modalTitle.textContent=displayName(product,variant);
@@ -421,12 +447,27 @@ function renderModalImage(){
   const variant=productVariant(product);
   const images=productImages(product,variant);
   activeImageIndex=(activeImageIndex+images.length)%images.length;
-  els.modalImage.src=images[activeImageIndex];
+  const src=images[activeImageIndex];
+  if(!els.modalImage.src.endsWith(src)){
+    els.modalImage.classList.add('fading');
+    els.modalImage.onload=els.modalImage.onerror=()=>els.modalImage.classList.remove('fading');
+    els.modalImage.src=src;
+  }
   els.modalImage.alt=`${displayName(product,variant)} - foto ${activeImageIndex+1}`;
-  els.modalThumbs.innerHTML=images.map((src,i)=>`<button class="thumb ${i===activeImageIndex?'active':''}" data-image-index="${i}" aria-label="Ver foto ${i+1} de ${displayName(product,variant)}"><img src="${src}" alt=""></button>`).join('');
+  document.querySelector('.modal-stage').classList.toggle('single',images.length<2);
+  document.getElementById('galleryCount').textContent=`${activeImageIndex+1} / ${images.length}`;
+  els.modalThumbs.innerHTML=images.map((src,i)=>`<button class="thumb ${i===activeImageIndex?'active':''}" data-image-index="${i}" aria-label="Ver foto ${i+1} de ${displayName(product,variant)}"><img src="${src}" alt="" loading="lazy"></button>`).join('');
   els.modalThumbs.querySelectorAll('.thumb').forEach(b=>b.onclick=()=>{activeImageIndex=Number(b.dataset.imageIndex);renderModalImage();});
-
+  const activeThumb=els.modalThumbs.querySelector('.thumb.active');
+  if(activeThumb){const t=els.modalThumbs.getBoundingClientRect(),a=activeThumb.getBoundingClientRect();els.modalThumbs.scrollLeft+=a.left-t.left-(t.width-a.width)/2;els.modalThumbs.scrollTop+=a.top-t.top-(t.height-a.height)/2;}
 }
+function stepImage(delta){activeImageIndex+=delta;renderModalImage();}
+function updateRail(){
+  const el=els.products,max=el.scrollWidth-el.clientWidth;
+  document.getElementById('railPrev').hidden=el.scrollLeft<=4;
+  document.getElementById('railNext').hidden=el.scrollLeft>=max-4;
+}
+function scrollRail(dir){const card=els.products.querySelector('.product');const step=card?card.offsetWidth+18:300;const el=els.products,start=el.scrollLeft,target=start+dir*step*2;el.scrollTo({left:target,behavior:'smooth'});setTimeout(()=>{if(Math.abs(el.scrollLeft-start)<2)el.scrollTo({left:target,behavior:'auto'});updateRail();},450);}
 function addToCart(id){
   const product=getProduct(id);if(!product)return;
   const variant=productVariant(product);
@@ -439,6 +480,7 @@ function addToCart(id){
     cart.push({id,variantId:variant.id,qty:1});
   }
   saveCart();renderProducts();
+  els.cartCount.classList.remove('bump');void els.cartCount.offsetWidth;els.cartCount.classList.add('bump');
   if(activeProductId===id&&els.productModal.classList.contains('open'))openProductModal(id,activeImageIndex);
   showToast();
 }
@@ -478,9 +520,22 @@ els.productModalBackdrop.onclick=closeProductModal;
 document.getElementById('modalAdd').onclick=()=>{if(activeProductId)addToCart(activeProductId);};
 document.getElementById('modalWhatsapp').onclick=askAboutProduct;
 document.addEventListener('keydown',(event)=>{
-  if(!els.productModal.classList.contains('open'))return;
-  if(event.key==='Escape')closeProductModal();
+  if(els.productModal.classList.contains('open')){
+    if(event.key==='Escape')closeProductModal();
+    else if(event.key==='ArrowLeft')stepImage(-1);
+    else if(event.key==='ArrowRight')stepImage(1);
+  }else if(event.key==='Escape'&&els.drawer.classList.contains('open'))toggleCart(false);
 });
+document.getElementById('galleryPrev').onclick=()=>stepImage(-1);
+document.getElementById('galleryNext').onclick=()=>stepImage(1);
+let touchX=null;
+const stage=document.querySelector('.modal-stage');
+stage.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;},{passive:true});
+stage.addEventListener('touchend',e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>40)stepImage(dx<0?1:-1);touchX=null;});
+document.getElementById('railPrev').onclick=()=>scrollRail(-1);
+document.getElementById('railNext').onclick=()=>scrollRail(1);
+els.products.addEventListener('scroll',updateRail,{passive:true});
+window.addEventListener('resize',updateRail);
 document.getElementById('year').textContent=new Date().getFullYear();
 renderFilters();renderProducts();renderCart();
 </script>
